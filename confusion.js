@@ -71,7 +71,8 @@ typeSound = loadSound("sound/dialogue.wav");
 }
 
 function setup() {
-  createCanvas(windowHeight, windowHeight);
+  //createCanvas(windowHeight, windowHeight);
+  createCanvas(800, 800);
   bgmusic.loop();   // loops forever
   bgmusic.setVolume(0.5); // 0.0 = mute, 1.0 = full volume
   pg = createGraphics(width, height);

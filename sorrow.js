@@ -67,7 +67,8 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(windowHeight, windowHeight);
+  //createCanvas(windowHeight, windowHeight);
+  createCanvas(800, 800);
   thunderSound.play();
   bgmusic.loop();   // loops forever
   bgmusic.setVolume(0.5);

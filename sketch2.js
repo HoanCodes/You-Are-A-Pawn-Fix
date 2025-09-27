@@ -67,7 +67,8 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(windowHeight, windowHeight);
+  //createCanvas(windowHeight, windowHeight);
+  createCanvas(800, 800);
   bgmusic.loop();   // loops forever
   bgmusic.setVolume(0.5); // 0.0 = mute, 1.0 = full volume
   noSmooth();
@@ -138,19 +139,19 @@ function draw() {
     image(eyebox, width / 2, width / 6, eyebox.width * 0.5, eyebox.height * 0.5);
 
     // Eyeballs tracking player
-    let eyeX = width / 3.5;
+    let eyeX = width / 3.2;
     let eyeY = width / 6.5;
     let dx = player.x - eyeX;
     let dy = player.y - eyeY;
     let maxOffsetX = 30;
-    let maxOffsetY = 12;
+    let maxOffsetY = 11;
     let mag = sqrt(dx * dx + dy * dy);
     if (mag > 0) {
       dx = (dx / mag) * maxOffsetX;
       dy = (dy / mag) * maxOffsetY;
     }
     image(eyeball, eyeX + dx, eyeY + dy, eyeball.width * 0.7, eyeball.height * 0.7);
-    image(eyeball, width / 1.45 + dx, eyeY + dy, eyeball.width * 0.7, eyeball.height * 0.7);
+    image(eyeball, width / 1.5 + dx, eyeY + dy, eyeball.width * 0.7, eyeball.height * 0.7);
 
     // Shields
     drawShields();

@@ -38,7 +38,7 @@ let blockZones = [
 ];
 
 // === Intro sequence state ===
-let intro = true;            
+let intro = true;
 let introStage = 'fadeInCover';    // start directly fading in cover
 let coverAlpha = 100;         // coverImage alpha
 let uiAlpha = 255;          // title + "click to begin" alpha
@@ -80,13 +80,14 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(windowHeight, windowHeight);
-bgmusic.setVolume(0.5);
-bgmusic.loop();
+  //createCanvas(windowHeight, windowHeight);
+  createCanvas(800, 800);
+  bgmusic.setVolume(0.5);
+  bgmusic.loop();
   // Player setup
   player = {
     x: width / 2,
-    y: height / 2,
+    y: height / 3,
     speed: 4,
     currentSprite: sprites.front,
     facing: "front",
@@ -112,25 +113,25 @@ function draw() {
 
   // Draw NPCs & player behind the intro UI
   image(player.currentSprite, player.x, player.y,
-        player.currentSprite.width * player.scale,
-        player.currentSprite.height * player.scale);
+    player.currentSprite.width * player.scale,
+    player.currentSprite.height * player.scale);
 
-  image(xe, width - 650, height - 150);
-  image(xe2, 650, height - 150);
-  image(pawn, width/3.25, height - 260);
-  image(pawn, width/3.25, height - 120);
-  image(queen, width/2, height - 230, queen.width / 2.5, queen.height / 2.5);
+  image(xe, width / 8, height - 130);
+  image(xe2, width / 1.15, height - 130);
+  image(pawn, width / 3.25, height - 260);
+  image(pawn, width / 3.25, height - 120);
+  image(queen, width / 2, height - 230, queen.width / 2.5, queen.height / 2.5);
 
   // Mirrored pawns
   push();
-  translate(width/1.4, height - 260);
+  translate(width / 1.4, height - 260);
   scale(-1, 1);
   imageMode(CENTER);
   image(pawn, 0, 0);
   pop();
 
   push();
-  translate(width/1.4, height - 120);
+  translate(width / 1.4, height - 120);
   scale(-1, 1);
   imageMode(CENTER);
   image(pawn, 0, 0);
@@ -144,12 +145,12 @@ function draw() {
     push();
     tint(255, coverAlpha);
     imageMode(CENTER);
-    image(coverImage, width/2, height/2, width, height);
+    image(coverImage, width / 2, height / 2, width, height);
     pop();
 
     // title (centered horizontally) dropping down
     push();
-    translate(width/2, titleY);
+    translate(width / 2, titleY);
     imageMode(CENTER);
     tint(255, uiAlpha);
     image(title, 0, 0, title.width * titleScale, title.height * titleScale);
@@ -162,17 +163,17 @@ function draw() {
     textAlign(CENTER, BOTTOM);
     let blink = (sin(millis() / 350) + 1) / 2; // 0..1
     let blinkAlpha = lerp(80, 255, blink);
-    fill(255, uiAlpha * (blinkAlpha/255));
+    fill(255, uiAlpha * (blinkAlpha / 255));
     strokeWeight(2);
     stroke(42, 31, 45);
-    text("Click anywhere to begin", width/2, height - 30);
+    text("Click anywhere to begin", width / 2, height - 30);
     pop();
 
     // black overlay (only at beginning)
     if (blackAlpha > 0 && introStage === 'fadeInCover') {
       noStroke();
       fill(0, blackAlpha);
-      rect(0,0,width,height);
+      rect(0, 0, width, height);
     }
 
     return; // skip dialogue/movement while intro
@@ -186,7 +187,7 @@ function draw() {
     }
     noStroke();
     fill(0, fadeAlpha);
-    rect(0,0,width,height);
+    rect(0, 0, width, height);
     return;
   }
 
@@ -203,7 +204,7 @@ function draw() {
 
   // Check if player is moving (for moveSound)
   let moving = keyIsDown(65) || keyIsDown(68) || keyIsDown(87) || keyIsDown(83) ||
-               keyIsDown(LEFT_ARROW) || keyIsDown(RIGHT_ARROW) || keyIsDown(UP_ARROW) || keyIsDown(DOWN_ARROW);
+    keyIsDown(LEFT_ARROW) || keyIsDown(RIGHT_ARROW) || keyIsDown(UP_ARROW) || keyIsDown(DOWN_ARROW);
 
   if (moving) {
     if (!moveSound.isPlaying()) {
@@ -295,7 +296,7 @@ function handleInput() {
   player.x = constrain(player.x, halfW, width - halfW);
   player.y = constrain(player.y, halfH, height - halfH);
 
-  if (insideBlockZones(player.x, player.y, halfW*2, halfH*2)) {
+  if (insideBlockZones(player.x, player.y, halfW * 2, halfH * 2)) {
     player.x = oldX;
     player.y = oldY;
   }
@@ -306,8 +307,8 @@ function handleInput() {
 
   if (!moving) {
     if (player.facing === "front") player.currentSprite = sprites.front;
-    if (player.facing === "back")  player.currentSprite = sprites.back;
-    if (player.facing === "left")  player.currentSprite = sprites.left;
+    if (player.facing === "back") player.currentSprite = sprites.back;
+    if (player.facing === "left") player.currentSprite = sprites.left;
     if (player.facing === "right") player.currentSprite = sprites.right;
   }
 }
@@ -388,10 +389,10 @@ function keyPressed() {
 function insideBlockZones(px, py, pw, ph) {
   for (let b of blockZones) {
     let hit = !(
-      px + pw/2 < b.x ||
-      px - pw/2 > b.x + b.size ||
-      py + ph/2 < b.y ||
-      py - ph/2 > b.y + b.size
+      px + pw / 2 < b.x ||
+      px - pw / 2 > b.x + b.size ||
+      py + ph / 2 < b.y ||
+      py - ph / 2 > b.y + b.size
     );
     if (hit) return true;
   }
