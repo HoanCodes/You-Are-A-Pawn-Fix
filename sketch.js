@@ -87,7 +87,7 @@ function setup() {
   // Player setup
   player = {
     x: width / 2,
-    y: height / 3,
+    y: height / 2,
     speed: 4,
     currentSprite: sprites.front,
     facing: "front",
